@@ -1,0 +1,79 @@
+version: '3.0'
+
+networks:
+    ocelot-network:
+        driver: bridge
+
+services:
+    ocelot-gateway:
+        environment:
+            - "ASPNETCORE_HTTPS_PORT=5001"
+            - "ASPNETCORE_ENVIRONMENT=Development"
+            - "ASPNETCORE_URLS=https://+:443;http://+:80"
+        ports:
+            - "5000:80"
+            - "5001:443"
+        container_name: ocelot-gateway
+        image: ocelot-gateway
+        build:
+            context: .
+            dockerfile: src/Poc.Ocelot.Gateway/Dockerfile
+        networks:
+            - ocelot-network
+        volumes:
+            - ${AppData}/Roaming/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+            - ${AppData}/Roaming/ASP.NET/Https:/root/.aspnet/https:ro
+
+    accounts-service:
+        environment:
+            - "ASPNETCORE_HTTPS_PORT=443"
+            - "ASPNETCORE_ENVIRONMENT=Development"
+            - "ASPNETCORE_URLS=https://+:443;http://+:80"
+        container_name: accounts-service
+        image: accounts-service
+        build:
+            context: .
+            dockerfile: src/Poc.Ocelot.Accounts/Dockerfile
+        networks:
+            - ocelot-network
+        volumes:
+            - ${AppData}/Roaming/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+            - ${AppData}/Roaming/ASP.NET/Https:/root/.aspnet/https:ro
+        depends_on:
+            - ocelot-gateway
+
+    payment-service:
+        environment:
+            - "ASPNETCORE_HTTPS_PORT=443"
+            - "ASPNETCORE_ENVIRONMENT=Development"
+            - "ASPNETCORE_URLS=https://+:443;http://+:80"
+        container_name: payment-service
+        image: payment-service
+        build:
+            context: .
+            dockerfile: src/Poc.Ocelot.Payments/Dockerfile
+        networks:
+            - ocelot-network
+        volumes:
+            - ${AppData}/Roaming/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+            - ${AppData}/Roaming/ASP.NET/Https:/root/.aspnet/https:ro
+        depends_on:
+            - ocelot-gateway
+
+    product-service:
+        environment:
+            - "ASPNETCORE_HTTPS_PORT=443"
+            - "ASPNETCORE_ENVIRONMENT=Development"
+            - "ASPNETCORE_URLS=https://+:443;http://+:80"
+        container_name: product-service
+        image: product-service
+        build:
+            context: .
+            dockerfile: src/Poc.Ocelot.Products/Dockerfile
+        networks:
+            - ocelot-network
+        volumes:
+            - ${AppData}/Roaming/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+            - ${AppData}/Roaming/ASP.NET/Https:/root/.aspnet/https:ro
+        depends_on:
+            - ocelot-gateway

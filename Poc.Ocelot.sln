@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poc.Ocelot.Accounts", "src\Poc.Ocelot.Accounts\Poc.Ocelot.Accounts.csproj", "{F4CE9154-63A5-410C-A66E-130F885E2FEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Solution Items", "0 - Solution Items", "{5CE72026-EB49-448B-A35D-C8BFCADBE86D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - APIs", "1 - APIs", "{90F4E380-6198-4DE5-B670-3286069A3D60}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poc.Ocelot.Products", "src\Poc.Ocelot.Products\Poc.Ocelot.Products.csproj", "{D5CEE882-CBA7-45A1-B734-A41753F26A77}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poc.Ocelot.Payments", "src\Poc.Ocelot.Payments\Poc.Ocelot.Payments.csproj", "{224D48F1-0575-4398-92A5-B5918FD3E83D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Gateway", "2 - Gateway", "{1B32B29D-10C1-40A5-9E3A-9B6B27388193}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poc.Ocelot.Gateway", "src\Poc.Ocelot.Gateway\Poc.Ocelot.Gateway.csproj", "{7799D07E-9D90-4976-BE5D-01DE8F73D93D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Identity Server", "3 - Identity Server", "{650F6E44-DD92-4401-B9CB-CE745A62C7A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4CE9154-63A5-410C-A66E-130F885E2FEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4CE9154-63A5-410C-A66E-130F885E2FEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4CE9154-63A5-410C-A66E-130F885E2FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4CE9154-63A5-410C-A66E-130F885E2FEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5CEE882-CBA7-45A1-B734-A41753F26A77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5CEE882-CBA7-45A1-B734-A41753F26A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5CEE882-CBA7-45A1-B734-A41753F26A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5CEE882-CBA7-45A1-B734-A41753F26A77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{224D48F1-0575-4398-92A5-B5918FD3E83D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{224D48F1-0575-4398-92A5-B5918FD3E83D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{224D48F1-0575-4398-92A5-B5918FD3E83D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{224D48F1-0575-4398-92A5-B5918FD3E83D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7799D07E-9D90-4976-BE5D-01DE8F73D93D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7799D07E-9D90-4976-BE5D-01DE8F73D93D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7799D07E-9D90-4976-BE5D-01DE8F73D93D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7799D07E-9D90-4976-BE5D-01DE8F73D93D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F4CE9154-63A5-410C-A66E-130F885E2FEA} = {650F6E44-DD92-4401-B9CB-CE745A62C7A9}
+		{D5CEE882-CBA7-45A1-B734-A41753F26A77} = {90F4E380-6198-4DE5-B670-3286069A3D60}
+		{224D48F1-0575-4398-92A5-B5918FD3E83D} = {90F4E380-6198-4DE5-B670-3286069A3D60}
+		{7799D07E-9D90-4976-BE5D-01DE8F73D93D} = {1B32B29D-10C1-40A5-9E3A-9B6B27388193}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {294050C5-9CF8-49DA-9E2B-23D2E60DCA9F}
+	EndGlobalSection
+EndGlobal

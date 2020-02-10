@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+WORKDIR /app
+
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS restore
+WORKDIR /src
+COPY ["src/Poc.Ocelot.Payments/Poc.Ocelot.Payments.csproj", "src/Poc.Ocelot.Payments/"]
+RUN dotnet restore "src/Poc.Ocelot.Payments/Poc.Ocelot.Payments.csproj"
+
+FROM restore as build
+COPY . .
+WORKDIR /src/src/Poc.Ocelot.Payments
+RUN dotnet build "Poc.Ocelot.Payments.csproj" --no-restore -c Release
+
+FROM build AS publish
+RUN dotnet publish "Poc.Ocelot.Payments.csproj" --no-build -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Poc.Ocelot.Payments.dll"]
