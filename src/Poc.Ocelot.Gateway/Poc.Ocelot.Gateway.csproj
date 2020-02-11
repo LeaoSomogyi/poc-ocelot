@@ -21,7 +21,7 @@
     </Content>
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties ocelot_1payment_1json__JsonSchema="http://json.schemastore.org/ocelot" ocelot_1product_1json__JsonSchema="http://json.schemastore.org/ocelot" /></VisualStudio></ProjectExtensions>
 
 
 </Project>

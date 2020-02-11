@@ -26,9 +26,12 @@ services:
 
     accounts-service:
         environment:
-            - "ASPNETCORE_HTTPS_PORT=443"
+            - "ASPNETCORE_HTTPS_PORT=6001"
             - "ASPNETCORE_ENVIRONMENT=Development"
             - "ASPNETCORE_URLS=https://+:443;http://+:80"
+        ports:
+            - "6000:80"
+            - "6001:443"
         container_name: accounts-service
         image: accounts-service
         build:
@@ -44,7 +47,7 @@ services:
 
     payment-service:
         environment:
-            - "ASPNETCORE_HTTPS_PORT=443"
+            - "ASPNETCORE_HTTPS_PORT=7001"
             - "ASPNETCORE_ENVIRONMENT=Development"
             - "ASPNETCORE_URLS=https://+:443;http://+:80"
         container_name: payment-service
@@ -62,7 +65,7 @@ services:
 
     product-service:
         environment:
-            - "ASPNETCORE_HTTPS_PORT=443"
+            - "ASPNETCORE_HTTPS_PORT=8001"
             - "ASPNETCORE_ENVIRONMENT=Development"
             - "ASPNETCORE_URLS=https://+:443;http://+:80"
         container_name: product-service

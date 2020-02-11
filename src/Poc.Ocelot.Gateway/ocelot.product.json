@@ -1,38 +1,58 @@
 {
-  "ReRoutes": [
-    {
-      "DownstreamPathTemplate": "/api/products/{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+    "ReRoutes": [
         {
-          "Host": "product-service",
-          "Port": 443
+            "DownstreamPathTemplate": "/",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-service",
+                    "Port": 80
+                },
+                {
+                    "Host": "product-service",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/product/",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "AUTH",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-service",
+                    "Port": 80
+                },
+                {
+                    "Host": "product-service",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/product/{everything}",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "AUTH",
+                "AllowedScopes": []
+            }
         }
-      ],
-      "UpstreamPathTemplate": "/api/product/{everything}",
-      "UpstreamHttpMethod": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "AUTH",
-        "AllowedScopes": []
-      },
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1s",
-        "PeriodTimespan": 1,
-        "Limit": 1
-      },
-      "FileCacheOptions": {
-        "TtlSeconds": 15,
-        "Region": "productcaching"
-      }
-    }
-  ],
+    ],
   "GlobalConfiguration": {
 
   }

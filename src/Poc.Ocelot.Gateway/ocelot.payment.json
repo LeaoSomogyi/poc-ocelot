@@ -1,38 +1,58 @@
 {
-  "ReRoutes": [
-    {
-      "DownstreamPathTemplate": "/api/payments/{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+    "ReRoutes": [
         {
-          "Host": "payment-service",
-          "Port": 443
+            "DownstreamPathTemplate": "/",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "payment-service",
+                    "Port": 80
+                },
+                {
+                    "Host": "payment-service",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/pay/",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "AUTH",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "payment-service",
+                    "Port": 80
+                },
+                {
+                    "Host": "payment-service",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/pay/{everything}",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "AUTH",
+                "AllowedScopes": []
+            }
         }
-      ],
-      "UpstreamPathTemplate": "/api/payments/{everything}",
-      "UpstreamHttpMethod": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "AUTH",
-        "AllowedScopes": []
-      },
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1s",
-        "PeriodTimespan": 1,
-        "Limit": 1
-      },
-      "FileCacheOptions": {
-        "TtlSeconds": 15,
-        "Region": "productcaching"
-      }
-    }
-  ],
+    ],
   "GlobalConfiguration": {
 
   }

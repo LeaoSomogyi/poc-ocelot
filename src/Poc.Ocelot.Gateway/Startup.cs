@@ -1,4 +1,4 @@
-using IdentityServer4.AccessTokenValidation;
+﻿using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +26,7 @@ namespace Poc.Ocelot.Gateway
                 .AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(providerKey, opt =>
                 {
-                    opt.Authority = "https://accounts-service";
+                    opt.Authority = "https://localhost:6001/connect/token";
                     opt.ApiName = "OcelotPOC";
                     opt.SupportedTokens = SupportedTokens.Both;
                     opt.RequireHttpsMetadata = false;
