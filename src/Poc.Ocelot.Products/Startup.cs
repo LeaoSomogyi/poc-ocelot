@@ -1,8 +1,14 @@
+﻿using System.Globalization;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Poc.Ocelot.Products
 {
@@ -17,7 +23,17 @@ namespace Poc.Ocelot.Products
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                var settings = options.SerializerSettings;
+                settings.NullValueHandling = NullValueHandling.Ignore;
+                settings.FloatFormatHandling = FloatFormatHandling.DefaultValue;
+                settings.FloatParseHandling = FloatParseHandling.Double;
+                settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                settings.DateFormatString = "yyyy-MM-ddTHH:mm:ss";
+                settings.Culture = new CultureInfo("en-US");
+                settings.ContractResolver = new DefaultContractResolver() { NamingStrategy = new SnakeCaseNamingStrategy() };
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -25,6 +41,10 @@ namespace Poc.Ocelot.Products
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection();

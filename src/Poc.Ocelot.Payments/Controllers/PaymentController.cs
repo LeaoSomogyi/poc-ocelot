@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Poc.Ocelot.Payments.Controllers
 {
@@ -7,7 +7,7 @@ namespace Poc.Ocelot.Payments.Controllers
     [ApiController]
     public class PaymentController : ControllerBase
     {
-        [HttpGet, Route("")]
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             return await Task.Run(() => Ok(new { message = "This will list all payment methods" }));

@@ -1,5 +1,9 @@
 version: '3.0'
 
+volumes:
+    sqldata:
+        driver: local
+
 networks:
     ocelot-network:
         driver: bridge
@@ -23,6 +27,8 @@ services:
         volumes:
             - ${AppData}/Roaming/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
             - ${AppData}/Roaming/ASP.NET/Https:/root/.aspnet/https:ro
+        depends_on:
+            - sql-database
 
     accounts-service:
         environment:
@@ -47,7 +53,6 @@ services:
 
     payment-service:
         environment:
-            - "ASPNETCORE_HTTPS_PORT=7001"
             - "ASPNETCORE_ENVIRONMENT=Development"
             - "ASPNETCORE_URLS=https://+:443;http://+:80"
         container_name: payment-service
@@ -65,7 +70,6 @@ services:
 
     product-service:
         environment:
-            - "ASPNETCORE_HTTPS_PORT=8001"
             - "ASPNETCORE_ENVIRONMENT=Development"
             - "ASPNETCORE_URLS=https://+:443;http://+:80"
         container_name: product-service
@@ -80,3 +84,17 @@ services:
             - ${AppData}/Roaming/ASP.NET/Https:/root/.aspnet/https:ro
         depends_on:
             - ocelot-gateway
+
+    sql-database:
+        environment:
+            - SA_PASSWORD=@Abcd1234
+            - ACCEPT_EULA=Y
+        ports:
+            - "1433:1433"
+            - "1434:1434"
+        container_name: sql-database
+        image: mcr.microsoft.com/mssql/server:2019-CU1-ubuntu-16.04
+        networks:
+            - ocelot-network
+        volumes:
+            - sqldata

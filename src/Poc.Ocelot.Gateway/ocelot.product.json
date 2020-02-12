@@ -1,7 +1,7 @@
 {
     "ReRoutes": [
         {
-            "DownstreamPathTemplate": "/",
+            "DownstreamPathTemplate": "/api/products/",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -13,7 +13,7 @@
                     "Port": 443
                 }
             ],
-            "UpstreamPathTemplate": "/product/",
+            "UpstreamPathTemplate": "/api/products/",
             "UpstreamHttpMethod": [
                 "GET",
                 "POST",
@@ -22,12 +22,12 @@
                 "OPTIONS"
             ],
             "AuthenticationOptions": {
-                "AuthenticationProviderKey": "AUTH",
+                "AuthenticationProviderKey": "C428A377979E39572FA6A1A13A0CE0DC5F1B30B7DAE07FB0AF26F79EDC149A72",
                 "AllowedScopes": []
             }
         },
         {
-            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamPathTemplate": "/api/products/{everything}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -39,7 +39,7 @@
                     "Port": 443
                 }
             ],
-            "UpstreamPathTemplate": "/product/{everything}",
+            "UpstreamPathTemplate": "/api/products/{everything}",
             "UpstreamHttpMethod": [
                 "GET",
                 "POST",
@@ -48,7 +48,7 @@
                 "OPTIONS"
             ],
             "AuthenticationOptions": {
-                "AuthenticationProviderKey": "AUTH",
+                "AuthenticationProviderKey": "C428A377979E39572FA6A1A13A0CE0DC5F1B30B7DAE07FB0AF26F79EDC149A72",
                 "AllowedScopes": []
             }
         }

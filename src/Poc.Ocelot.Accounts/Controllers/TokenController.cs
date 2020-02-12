@@ -1,7 +1,8 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using IdentityModel.Client;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Poc.Ocelot.Accounts.Interfaces.Services;
+using Poc.Ocelot.Accounts.Models;
 
 namespace Poc.Ocelot.Accounts.Controllers
 {
@@ -9,18 +10,20 @@ namespace Poc.Ocelot.Accounts.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-        [HttpGet, Route("authorize")]
-        public async Task<IActionResult> GenerateToken()
-        {
-            var token = await new HttpClient().RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest()
-            {
-                Address = "https://localhost:6001/connect/token",
-                ClientId = "ClientId",
-                ClientSecret = "ClientSecret",
-                Scope = "OcelotPOC"
-            });
+        private readonly IAccountService _accountService;
 
-            return Ok(token.Json);
+        public TokenController(IAccountService accountService)
+        {
+            _accountService = accountService;
+        }
+
+        [HttpPost, Route("authorize")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Authorize([FromBody] Account account)
+        {
+            var result = await _accountService.Authenticate(account);
+
+            return Ok(result);
         }
     }
 }
