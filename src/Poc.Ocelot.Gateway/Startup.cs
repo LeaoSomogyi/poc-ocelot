@@ -1,5 +1,5 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System;
+using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -60,9 +60,10 @@ namespace Poc.Ocelot.Gateway
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
+                        ClockSkew = TimeSpan.Zero,
 
                         ValidIssuer = Configuration["Tokens:Issuer"],
-                        ValidAudience = Configuration["Tokens:Issuer"],
+                        ValidAudience = Configuration["Tokens:Audience"],
                         IssuerSigningKey = signingKey
                     };
                 });
