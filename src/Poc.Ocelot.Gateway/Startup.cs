@@ -1,5 +1,5 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System;
+using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,17 +8,18 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Poc.Ocelot.Gateway.Extensions.Interfaces;
 
 namespace Poc.Ocelot.Gateway
 {
-    public class Startup
+    public class Startup : IStartupLocal
     {
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }        
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -33,17 +34,9 @@ namespace Poc.Ocelot.Gateway
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseHsts();
-            }
 
             app.UseAuthentication();
-
-            app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -58,25 +51,22 @@ namespace Poc.Ocelot.Gateway
         {
             var authenticationKey = Configuration["Tokens:Key"];
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationKey));
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(authenticationKey, config =>
-            {
-                config.RequireHttpsMetadata = false;
-                config.SaveToken = true;
-                config.TokenValidationParameters = new TokenValidationParameters()
+            services.AddAuthentication()
+                .AddJwtBearer(authenticationKey, config =>
                 {
-                    IssuerSigningKey = signingKey,
-                    ValidateAudience = true,
-                    ValidAudience = Configuration["Tokens:Audience"],
-                    ValidateIssuer = false,
-                    ValidIssuer = Configuration["Tokens:Issuer"],
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true
-                };
-            });
+                    config.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ClockSkew = TimeSpan.Zero,
+
+                        ValidIssuer = Configuration["Tokens:Issuer"],
+                        ValidAudience = Configuration["Tokens:Audience"],
+                        IssuerSigningKey = signingKey
+                    };
+                });
         }
     }
 }

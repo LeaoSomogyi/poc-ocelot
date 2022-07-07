@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Poc.Ocelot.Accounts.Constants;
 using Poc.Ocelot.Accounts.DataContexts;
+using Poc.Ocelot.Accounts.Interfaces;
 using Poc.Ocelot.Accounts.Interfaces.Repositories;
 using Poc.Ocelot.Accounts.Interfaces.Services;
 using Poc.Ocelot.Accounts.Repositories;
@@ -20,7 +21,7 @@ using Poc.Ocelot.Accounts.Services;
 
 namespace Poc.Ocelot.Accounts
 {
-    public class Startup
+    public class Startup : IStartupLocal
     {
         public IConfiguration Configuration { get; }
 
@@ -55,16 +56,10 @@ namespace Poc.Ocelot.Accounts
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseHsts();
-            }
 
             accountsContext.Database.Migrate();
 
             app.UseAuthentication();
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
