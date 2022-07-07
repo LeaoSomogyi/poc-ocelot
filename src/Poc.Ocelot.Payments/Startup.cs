@@ -6,10 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Poc.Ocelot.Payments.Extensions.Interfaces;
 
 namespace Poc.Ocelot.Payments
 {
-    public class Startup
+    public class Startup : IStartupLocal
     {
         public IConfiguration Configuration { get; }
 
@@ -39,12 +40,6 @@ namespace Poc.Ocelot.Payments
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 

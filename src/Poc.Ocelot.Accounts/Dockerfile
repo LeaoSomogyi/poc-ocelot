@@ -1,9 +1,9 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS restore
+FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS restore
 WORKDIR /src
 COPY ["src/Poc.Ocelot.Accounts/Poc.Ocelot.Accounts.csproj", "src/Poc.Ocelot.Accounts/"]
 RUN dotnet restore "src/Poc.Ocelot.Accounts/Poc.Ocelot.Accounts.csproj"

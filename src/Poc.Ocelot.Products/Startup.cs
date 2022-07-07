@@ -1,18 +1,16 @@
 ﻿using System.Globalization;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Poc.Ocelot.Products.Interfaces;
 
 namespace Poc.Ocelot.Products
 {
-    public class Startup
+    public class Startup : IStartupLocal
     {
         public IConfiguration Configuration { get; }
 
@@ -41,10 +39,6 @@ namespace Poc.Ocelot.Products
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
