@@ -25,6 +25,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poc.Ocelot.Gateway", "src\P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Identity Server", "3 - Identity Server", "{650F6E44-DD92-4401-B9CB-CE745A62C7A9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EEF556E4-420C-41CE-B205-BC93158C2ACD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poc.Ocelot.Backoffice", "src\Poc.Ocelot.Backoffice\Poc.Ocelot.Backoffice.csproj", "{060F413A-742D-414E-8876-FE52F88E3E1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,10 @@ Global
 		{7799D07E-9D90-4976-BE5D-01DE8F73D93D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7799D07E-9D90-4976-BE5D-01DE8F73D93D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7799D07E-9D90-4976-BE5D-01DE8F73D93D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{060F413A-742D-414E-8876-FE52F88E3E1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{060F413A-742D-414E-8876-FE52F88E3E1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{060F413A-742D-414E-8876-FE52F88E3E1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{060F413A-742D-414E-8876-FE52F88E3E1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +64,7 @@ Global
 		{D5CEE882-CBA7-45A1-B734-A41753F26A77} = {90F4E380-6198-4DE5-B670-3286069A3D60}
 		{224D48F1-0575-4398-92A5-B5918FD3E83D} = {90F4E380-6198-4DE5-B670-3286069A3D60}
 		{7799D07E-9D90-4976-BE5D-01DE8F73D93D} = {1B32B29D-10C1-40A5-9E3A-9B6B27388193}
+		{060F413A-742D-414E-8876-FE52F88E3E1A} = {EEF556E4-420C-41CE-B205-BC93158C2ACD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {294050C5-9CF8-49DA-9E2B-23D2E60DCA9F}

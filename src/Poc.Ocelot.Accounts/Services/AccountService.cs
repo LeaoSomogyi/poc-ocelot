@@ -23,10 +23,9 @@ namespace Poc.Ocelot.Accounts.Services
             _appSettings = options.Value;
         }
 
-        public async Task<Token> Authenticate(Account account)
+        public async Task<Token> Authenticate(Account account, string claimPermission)
         {
             var _account = await _accountRepository.FindToLoginAsync(account.Email, account.Password);
-
             if (_account != null)
             {
                 var now = DateTime.Now;
@@ -35,7 +34,8 @@ namespace Poc.Ocelot.Accounts.Services
                 {
                     new Claim(JwtRegisteredClaimNames.Sub, _account.Id.ToString()),
                     new Claim(JwtRegisteredClaimNames.UniqueName, _account.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(AppConstants.PERMISSION_CLAIM, claimPermission)
                 };
 
                 var expires = DateTime.Now.AddSeconds(_appSettings.Tokens.Lifetime);

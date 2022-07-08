@@ -1,0 +1,10 @@
+.vs
+**/.vs
+.git
+**/.git
+bin
+**/bin
+Obj
+**/Obj
+Properties
+**/Properties

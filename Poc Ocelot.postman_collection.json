@@ -35,16 +35,30 @@
 					"raw": "{\n\t\"email\": \"leaosomogyi@hotmail.com\",\n\t\"password\": \"@Abc1234\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6000/api/token/authorize",
+					"raw": "http://localhost:5000/api/accounts/token/authorize?permission_claim=Common",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "6000",
+					"port": "5000",
 					"path": [
 						"api",
+						"accounts",
 						"token",
 						"authorize"
+					],
+					"query": [
+						{
+							"key": "permission_claim",
+							"value": "Common",
+							"description": "Default value: Common. "
+						},
+						{
+							"key": "permission_claim",
+							"value": "Backoffice",
+							"description": "To access Backoffice API, you need to pass use this",
+							"disabled": true
+						}
 					]
 				}
 			},
@@ -97,6 +111,34 @@
 					"path": [
 						"api",
 						"payments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 - Backoffice Orders",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"description": "Only tokens with \"Backoffice\" claim can access this resource"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/backoffice/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"backoffice",
+						"orders"
 					]
 				}
 			},
