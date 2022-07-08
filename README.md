@@ -16,9 +16,11 @@ git clone https://github.com/LeaoSomogyi/poc-ocelot.git
 
 This solution has five projects, only [Poc.Ocelot.Gateway](https://github.com/LeaoSomogyi/poc-ocelot/tree/master/src/Poc.Ocelot.Gateway) has exposed on docker network and this project knows how to redirect requests to another services.
 
+This routes configurations can be found on `ocelot.json` file.
+
 Take a look at the diagram:
 
-
+![Untitled Diagram drawio (1)](https://user-images.githubusercontent.com/19554749/177908232-b22aa801-e956-46a9-9d40-9e77a8d31885.png)
 
 ## Postman
 
