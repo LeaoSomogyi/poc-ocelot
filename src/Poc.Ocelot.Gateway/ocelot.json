@@ -1,6 +1,102 @@
 {
     "Routes": [
         {
+            "DownstreamPathTemplate": "/api/token",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "accounts-service",
+                    "Port": 80
+                },
+                {
+                    "Host": "accounts-service",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/api/accounts/token",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/token/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "accounts-service",
+                    "Port": 80
+                },
+                {
+                    "Host": "accounts-service",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/api/accounts/token/{everything}",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/orders",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "backoffice-service",
+                    "Port": 80
+                },
+                {
+                    "Host": "backoffice-service",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/api/backoffice/orders",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "C428A377979E39572FA6A1A13A0CE0DC5F1B30B7DAE07FB0AF26F79EDC149A72",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/orders/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "backoffice-service",
+                    "Port": 80
+                },
+                {
+                    "Host": "backoffice-service",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/api/backoffice/orders/{everything}",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "C428A377979E39572FA6A1A13A0CE0DC5F1B30B7DAE07FB0AF26F79EDC149A72",
+                "AllowedScopes": []
+            }
+        },
+        {
             "DownstreamPathTemplate": "/api/products/",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [

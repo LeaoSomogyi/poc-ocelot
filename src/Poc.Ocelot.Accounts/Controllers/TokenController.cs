@@ -19,9 +19,9 @@ namespace Poc.Ocelot.Accounts.Controllers
 
         [HttpPost, Route("authorize")]
         [AllowAnonymous]
-        public async Task<IActionResult> Authorize([FromBody] Account account)
+        public async Task<IActionResult> Authorize([FromBody] Account account, [FromQuery(Name = "permission_claim")] string permissionClaim = "Common")
         {
-            var result = await _accountService.Authenticate(account);
+            var result = await _accountService.Authenticate(account, permissionClaim);
 
             return Ok(result);
         }

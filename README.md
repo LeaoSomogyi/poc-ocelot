@@ -1,6 +1,10 @@
 # POC Ocelot
 
-This project intends to be used as an example of architecture with microservices and a Gateway API using [Ocelot](https://www.nuget.org/packages/Ocelot/) to achieve that
+This project intends to be used as an example of architecture with microservices and a Gateway API using [Ocelot](https://ocelot.readthedocs.io/en/latest/index.html) to achieve that.
+
+Updated to [.NET 6.0](https://docs.microsoft.com/pt-br/dotnet/core/whats-new/dotnet-6) and [Ocelot 18.0.0](https://www.nuget.org/packages/Ocelot/).
+
+Give a star on [Ocelot Github](https://github.com/ThreeMammals/Ocelot) to support the developers!
 
 ## Getting Started
 
@@ -8,65 +12,43 @@ This project intends to be used as an example of architecture with microservices
 git clone https://github.com/LeaoSomogyi/poc-ocelot.git
 ```
 
-## Dev Certs
+## Project Architecture
 
-In order to run this project, you will need the self-signed certficates. So, let's install the [dotnet dev-certs tool](https://www.nuget.org/packages/dotnet-dev-certs):
+This solution has five projects, only [Poc.Ocelot.Gateway](https://github.com/LeaoSomogyi/poc-ocelot/tree/master/src/Poc.Ocelot.Gateway) has exposed on docker network and this project knows how to redirect requests to another services.
 
-```
-dotnet tool install --global dotnet-dev-certs --version 2.2.0
-```
+Take a look at the diagram:
 
-This step was a little to hard but it everything will be allright.
 
-First, run the follow command to generate the self-signed certificate:
 
-```
-dotnet dev-certs https
-```
+## Postman
 
-Now, we need to expose the UserSecret keys to development machine in order to work.
+Import [Poc Ocelot.postman_collection.json](https://github.com/LeaoSomogyi/poc-ocelot/blob/master/Poc%20Ocelot.postman_collection.json) to Postman and follow the requests order.
 
-For that, run the follow commands:
+### 0 - Auth
 
-```
-dotnet user-secrets set "Kestrel:Certificates:Default:Password" "53bfa119-f10c-4acb-b8a0-43282638879f" --project "<Your repo folder>\poc-ocelot\src\Poc.Ocelot.Gateway"
-```
+Service called: [Poc.Ocelot.Accounts](https://github.com/LeaoSomogyi/poc-ocelot/tree/master/src/Poc.Ocelot.Accounts)
 
-```
-dotnet user-secrets set "Kestrel:Certificates:Default:Password" "c9acc524-6b79-4ef5-9937-5327e9e3e24c" --project "<Your repo folder>\poc-ocelot\src\Poc.Ocelot.Accounts"
-```
+Only request with anonymous allowed. Used to get JWT token. If you pass the `permission_claim` query param, your can change if this token returned can access `Backoffice` API's or not. Possible values for this query param: `Common` or `Backoffice`.
 
-```
-dotnet user-secrets set "Kestrel:Certificates:Default:Password" "f9c493d3-035e-4341-9400-02936966c24a" --project "<Your repo folder>\poc-ocelot\src\Poc.Ocelot.Products"
-```
+### 1 - Product List
 
-```
-dotnet user-secrets set "Kestrel:Certificates:Default:Password" "1b9eb99c-b8c8-4ce4-bdfa-44e0f325b86f" --project "<Your repo folder>\poc-ocelot\src\Poc.Ocelot.Payments"
-```
+Service called: [Poc.Ocelot.Products](https://github.com/LeaoSomogyi/poc-ocelot/tree/master/src/Poc.Ocelot.Products)
 
-The last step is to export the certificates to a .pfx file to use on our docker containers:
+Just a simple get returning a message, but only requests authenticated can access. Note the authentication is provided by Gateway, none configuration is made on the project.
 
-```
-dotnet dev-certs https --export-path "<Your folder to use on docker volume>\Poc.Ocelot.Gateway.pfx" -p "53bfa119-f10c-4acb-b8a0-43282638879f"
-```
+### 2 - Payment List
 
-```
-dotnet dev-certs https --export-path "<Your folder to use on docker volume>\Poc.Ocelot.Accounts.pfx" -p "c9acc524-6b79-4ef5-9937-5327e9e3e24c"
-```
+Service called: [Poc.Ocelot.Payments](https://github.com/LeaoSomogyi/poc-ocelot/tree/master/src/Poc.Ocelot.Payments)
 
-```
-dotnet dev-certs https --export-path "<Your folder to use on docker volume>\Poc.Ocelot.Products.pfx" -p "f9c493d3-035e-4341-9400-02936966c24a"
-```
+Just a simple get returning a message, but only requests authenticated can access. Note the authentication is provided by Gateway, none configuration is made on the project.
 
-```
-dotnet dev-certs https --export-path "<Your folder to use on docker volume>\Poc.Ocelot.Payments.pfx" -p "1b9eb99c-b8c8-4ce4-bdfa-44e0f325b86f"
-```
+### 3 - Backoffice Orders
 
-Now we be able to use docker-compose to run the entire solution!
+Service called: [Poc.Ocelot.Backoffice](https://github.com/LeaoSomogyi/poc-ocelot/tree/master/src/Poc.Ocelot.Backoffice)
+
+This project has your own authentication rule. Only tokens with `permission` claim with the value `Backoffice` can access this request, otherwise and status 403 is returned.
 
 ## Docker
-
-First of all, you need to adjust the docker-compose file to the correspondent folders on your machine in order to mount the volumes properly.
 
 On the root folder of the solution, just run the follow command to the magic begins:
 
@@ -78,6 +60,12 @@ Once the build was finished:
 
 ```
 docker-compose up
+```
+
+To run and force build:
+
+```
+docker-compose up --build
 ```
 
 ## Authors
